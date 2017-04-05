@@ -19,13 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 public class ProductController {
+
 	/**
-	 * CREATION OF THE DATABASE
+	 * Allow the user to search a product within the database
+	 * 
+	 * @param type
+	 * @return the product(s) wanted by the user
 	 */
-	public static Connection connection = null;
-	public static String test = "Ca marche pas";
-	
-	static {
+	@RequestMapping(method = RequestMethod.GET, value = "/product")
+	public Product readBookmark(@RequestParam(value = "type", defaultValue = "none") String type) {
+		String test = "Ca parche pos";
+		
+		Connection connection = null;
 		
 		System.err.println("CONNECTION TO THE DATABASE...");
 		try {
@@ -33,7 +38,6 @@ public class ProductController {
 			System.err.println("DRIVER OK");
 			test= "DRIVER OK";
 			connection = DriverManager.getConnection("jdbc:postgresql://ec2-107-20-149-243.compute-1.amazonaws.com:5432/dd92iroqctbp9?sslmode=require", "wcljokynvaoaaz", "bc24d05d2f1abca159a6fd87ee7764acd72919e19a6314d8bdca27dcb2e12567");
-			//test22
 			
 			System.err.println("CONNECTION OK");
 			test= "CONNECTION OK";
@@ -44,16 +48,7 @@ public class ProductController {
 			e.printStackTrace();
 			test= e.getMessage();
 		}
-	}
-
-	/**
-	 * Allow the user to search a product within the database
-	 * 
-	 * @param type
-	 * @return the product(s) wanted by the user
-	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/product")
-	public Product readBookmark(@RequestParam(value = "type", defaultValue = "none") String type) {
+		
 		return new Product(1, 2, 3, test, "", "");
 		/*
 		String requete;
@@ -101,7 +96,7 @@ public class ProductController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/product")
 	public Product addProduct(@RequestBody Product input) {
-		System.out.println("Coucou: " + input);
+	/*	System.out.println("Coucou: " + input);
 		try {
 
 			PreparedStatement statement = connection
@@ -118,7 +113,7 @@ public class ProductController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+*/
 		return input;
 	}
 
