@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.springframework.boot.autoconfigure.jdbc.metadata.HikariDataSourcePoolMetadata;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,17 +24,19 @@ public class ProductController {
 	 */
 	public static Connection connection = null;
 	public static String test = "Ca marche pas";
+	
 	static {
+		
 		System.err.println("CONNECTION TO THE DATABASE...");
 		try {
 			Class.forName("org.postgresql.Driver");
 			System.err.println("DRIVER OK");
-			connection = null;
+			test= "DRIVER OK";
 			connection = DriverManager.getConnection("jdbc:postgresql://ec2-107-20-149-243.compute-1.amazonaws.com:5432/dd92iroqctbp9?sslmode=require", "wcljokynvaoaaz", "bc24d05d2f1abca159a6fd87ee7764acd72919e19a6314d8bdca27dcb2e12567");
 			//test22
 			
 			System.err.println("CONNECTION OK");
-			test= "ca marche";
+			test= "CONNECTION OK";
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
