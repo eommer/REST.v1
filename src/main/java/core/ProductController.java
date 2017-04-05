@@ -22,6 +22,7 @@ public class ProductController {
 	 * CREATION OF THE DATABASE
 	 */
 	public static Connection connection = null;
+	public static String test = "Ca marche pas";
 	static {
 		System.err.println("CONNECTION TO THE DATABASE...");
 		try {
@@ -32,6 +33,7 @@ public class ProductController {
 			//test22
 			
 			System.err.println("CONNECTION OK");
+			test= "ca marche";
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -47,7 +49,7 @@ public class ProductController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/product")
 	public Product readBookmark(@RequestParam(value = "type", defaultValue = "none") String type) {
-		return new Product();
+		return new Product(1, 2, 3, test, "", "");
 		/*
 		String requete;
 		if (type.equals("none")) {
