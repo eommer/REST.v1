@@ -39,8 +39,10 @@ public class ProductController {
 			test= "CONNECTION OK";
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			test= e.getMessage();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			test= e.getMessage();
 		}
 	}
 
