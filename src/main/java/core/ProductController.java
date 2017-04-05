@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.springframework.boot.autoconfigure.jdbc.metadata.HikariDataSourcePoolMetadata;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 public class ProductController {
+	/**
+	 * CREATION OF THE DATABASE
+	 */
+	public static Connection connection = null;
+	static {
+		System.err.println("CONNECTION TO THE DATABASE...");
+		try {
+			Class.forName("org.postgresql.Driver");
+			System.err.println("DRIVER OK");
+			connection = null;
+			connection = DriverManager.getConnection("jdbc:postgresql://ec2-107-20-149-243.compute-1.amazonaws.com:5432/dd92iroqctbp9?sslmode=require", "wcljokynvaoaaz", "bc24d05d2f1abca159a6fd87ee7764acd72919e19a6314d8bdca27dcb2e12567");
+
+			System.err.println("CONNECTION OK");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Allow the user to search a product within the database
@@ -27,30 +45,7 @@ public class ProductController {
 	 * @return the product(s) wanted by the user
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/product")
-	public Product readBookmark(@RequestParam(value = "type", defaultValue = "none") String type) {
-		String test = "Ca parche pos";
-		
-		Connection connection = null;
-		
-		System.err.println("CONNECTION TO THE DATABASE...");
-		try {
-			Class.forName("org.postgresql.Driver");
-			System.err.println("DRIVER OK");
-			test= "DRIVER OK";
-			connection = DriverManager.getConnection("jdbc:postgresql://ec2-107-20-149-243.compute-1.amazonaws.com:5432/dd92iroqctbp9?sslmode=require", "wcljokynvaoaaz", "bc24d05d2f1abca159a6fd87ee7764acd72919e19a6314d8bdca27dcb2e12567");
-			
-			System.err.println("CONNECTION OK");
-			test= "CONNECTION OK";
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			test= e.getMessage();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			test= e.getMessage();
-		}
-		
-		return new Product(1, 2, 3, test, "", "");
-		/*
+	public ArrayList<Product> readBookmark(@RequestParam(value = "type", defaultValue = "none") String type) {
 		String requete;
 		if (type.equals("none")) {
 			requete = "SELECT * FROM product";
@@ -85,7 +80,7 @@ public class ProductController {
 			e.printStackTrace();
 		}
 
-		return null;*/
+		return null;
 	}
 
 	/**
@@ -96,7 +91,7 @@ public class ProductController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/product")
 	public Product addProduct(@RequestBody Product input) {
-	/*	System.out.println("Coucou: " + input);
+		System.out.println("Coucou: " + input);
 		try {
 
 			PreparedStatement statement = connection
@@ -113,7 +108,7 @@ public class ProductController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-*/
+
 		return input;
 	}
 
