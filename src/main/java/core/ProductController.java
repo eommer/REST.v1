@@ -29,7 +29,7 @@ public class ProductController {
 			System.err.println("DRIVER OK");
 			connection = null;
 			connection = DriverManager.getConnection("jdbc:postgresql://ec2-107-20-149-243.compute-1.amazonaws.com:5432/dd92iroqctbp9?sslmode=require", "wcljokynvaoaaz", "bc24d05d2f1abca159a6fd87ee7764acd72919e19a6314d8bdca27dcb2e12567");
-			//test
+			//test2
 			
 			System.err.println("CONNECTION OK");
 		} catch (ClassNotFoundException e) {
